@@ -15,52 +15,53 @@ public class Code2040_Project {
 		System.out.println("Token unique identifier: " + token + ".");
 		System.out.println();
 		
-//		//Stage 1 Reverse a String
-//		String str = getStringToReverse(token);
-//		System.out.println("------Stage 1 Reverse a String------");
-//		System.out.println("String to reverse: " + str);
-//		String reverseStr = reverseString(str);
-//		System.out.println("String reversed: " + reverseStr);
-//		System.out.println("Submitting result...");
-//		String result = submitStringReversed(token, reverseStr);
-//		System.out.println("Result submitted.");
-//		System.out.println("RESULT -->  " + result);
-//		System.out.println("-------Stage 1 DONE-------");
-//		System.out.println();
-//		
-//		//Stage 2 Needle in a haystack
-//		System.out.println("------Stage 2 Needle in a Haystack------");
-//		JSONObject dataForNeedleInHaystack = getNeedleInHaystackData(token);
-//		int index = locateNeedleInHaystack(dataForNeedleInHaystack);
-//		System.out.println("Needle is located in index: " + index);
-//		System.out.println("Submitting result...");
-//		result = submitNeedleIndex(token, index);
-//		System.out.println("Result submitted.");
-//		System.out.println("RESULT -->  " + result);
-//		System.out.println("-------Stage 2 DONE-------");
-//		System.out.println();
-//		
-//		//Stage 3 Prefix
-//		System.out.println("------Stage 3 Prefix------");
-//		JSONObject dataForPrefix = getPrefixData(token);
-//		JSONArray arrayWithNoPrefix = getArrayWithNoPrefix(dataForPrefix);
-//		System.out.println("Submitting result...");
-//		result = submitNewArray(token, arrayWithNoPrefix);
-//		System.out.println("RESULT -->  " + result);
-//		System.out.println("-------Stage 3 DONE-------");
-//		System.out.println();
+		//Stage 1 Reverse a String
+		String str = getStringToReverse(token);
+		System.out.println("------Stage 1 Reverse a String------");
+		System.out.println("String to reverse: " + str);
+		String reverseStr = reverseString(str);
+		System.out.println("String reversed: " + reverseStr);
+		System.out.println("Submitting result...");
+		String result = submitStringReversed(token, reverseStr);
+		System.out.println("RESULT -->  " + result);
+		System.out.println("-------Stage 1 DONE-------");
+		System.out.println();
+		
+		//Stage 2 Needle in a haystack
+		System.out.println("------Stage 2 Needle in a Haystack------");
+		JSONObject dataForNeedleInHaystack = getNeedleInHaystackData(token);
+		int index = locateNeedleInHaystack(dataForNeedleInHaystack);
+		System.out.println("Needle is located in index: " + index);
+		System.out.println("Submitting result...");
+		result = submitNeedleIndex(token, index);
+		System.out.println("RESULT -->  " + result);
+		System.out.println("-------Stage 2 DONE-------");
+		System.out.println();
+		
+		//Stage 3 Prefix
+		System.out.println("------Stage 3 Prefix------");
+		JSONObject dataForPrefix = getPrefixData(token);
+		JSONArray arrayWithNoPrefix = getArrayWithNoPrefix(dataForPrefix);
+		System.out.println("Submitting result...");
+		result = submitNewArray(token, arrayWithNoPrefix);
+		System.out.println("RESULT -->  " + result);
+		System.out.println("-------Stage 3 DONE-------");
+		System.out.println();
 		
 		//Stage 4 The Dating Game
 		System.out.println("------Stage 4 The Dating Game------");
 		JSONObject dataForDate = getDateData(token);
 		String newDate = getNewDate(dataForDate);
-		String result = submitNewDate(token, newDate);
-		System.out.println(result);
+		System.out.println("Submitting result...");
+		result = submitNewDate(token, newDate);
+		System.out.println("RESULT -->  " + result);
+		System.out.println("-------Stage 4 DONE-------");
+		System.out.println();
 		
 		//GRADES
-//		System.out.println("----------------GRADES-------------------");
-//		String grades = getGrades(token);
-//		System.out.println(grades);
+		System.out.println("----------------GRADES-------------------");
+		String grades = getGrades(token);
+		System.out.println(grades);
 	}
 	
 	/*
@@ -71,8 +72,7 @@ public class Code2040_Project {
 		JSONObject dictionary = new JSONObject();
 		dictionary.put("token", token);
 		dictionary.put("datestamp", newDate);
-		
-		System.out.println(dictionary);
+
 		URL url = new URL("http://challenge.code2040.org/api/validatetime");
 		JSONObject jsonObject = getData(dictionary, url);	
 		String result = jsonObject.get("result").toString();
@@ -81,15 +81,9 @@ public class Code2040_Project {
 	
 	public static String getNewDate(JSONObject data) {
 		String datestamp = data.get("datestamp").toString();
-		long interval = Long.parseLong(data.get("interval").toString());
-		System.out.println(data);
-		System.out.println(datestamp);
-		System.out.println(interval);
+		int interval = Integer.parseInt(data.get("interval").toString());
 		DateTime date = DateTime.parse(datestamp);
-		System.out.println(date);
-		date = date.plus(interval);
-		System.out.println(date);
-		
+		date = date.plusSeconds(interval);
 		return date.toString();
 	}
 	
