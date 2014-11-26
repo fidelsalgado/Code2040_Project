@@ -14,48 +14,72 @@ public class Code2040_Project {
 		System.out.println("Token unique identifier: " + token + ".");
 		System.out.println();
 		
-//		//Stage 1 Reverse a String
-//		String str = getStringToReverse(token);
-//		System.out.println("------Stage 1 Reverse a String------");
-//		System.out.println("String to reverse: " + str);
-//		String reverseStr = reverseString(str);
-//		System.out.println("String reversed: " + reverseStr);
-//		System.out.println("Submitting result...");
-//		String result = submitStringReversed(token, reverseStr);
-//		System.out.println("Result submitted.");
-//		System.out.println("RESULT -->  " + result);
-//		System.out.println("-------Stage 1 DONE-------");
-//		System.out.println();
-//		
-//		//Stage 2 Needle in a haystack
-//		System.out.println("------Stage 2 Needle in a Haystack------");
-//		JSONObject dataForNeedleInHaystack = getNeedleInHaystackData(token);
-//		int index = locateNeedleInHaystack(dataForNeedleInHaystack);
-//		System.out.println("Needle is located in index: " + index);
-//		System.out.println("Submitting result...");
-//		result = submitNeedleIndex(token, index);
-//		System.out.println("Result submitted.");
-//		System.out.println("RESULT -->  " + result);
-//		System.out.println("-------Stage 2 DONE-------");
-//		System.out.println();
+		//Stage 1 Reverse a String
+		String str = getStringToReverse(token);
+		System.out.println("------Stage 1 Reverse a String------");
+		System.out.println("String to reverse: " + str);
+		String reverseStr = reverseString(str);
+		System.out.println("String reversed: " + reverseStr);
+		System.out.println("Submitting result...");
+		String result = submitStringReversed(token, reverseStr);
+		System.out.println("Result submitted.");
+		System.out.println("RESULT -->  " + result);
+		System.out.println("-------Stage 1 DONE-------");
+		System.out.println();
 		
-//		//Stage 3 
-//		System.out.println("------Stage 3 Prefix------");
-//		JSONObject dataForPrefix = getPrefixData(token);
-//		ArrayList<String> list = new ArrayList<String>()
+		//Stage 2 Needle in a haystack
+		System.out.println("------Stage 2 Needle in a Haystack------");
+		JSONObject dataForNeedleInHaystack = getNeedleInHaystackData(token);
+		int index = locateNeedleInHaystack(dataForNeedleInHaystack);
+		System.out.println("Needle is located in index: " + index);
+		System.out.println("Submitting result...");
+		result = submitNeedleIndex(token, index);
+		System.out.println("Result submitted.");
+		System.out.println("RESULT -->  " + result);
+		System.out.println("-------Stage 2 DONE-------");
+		System.out.println();
 		
-//		//GRADES
-//		System.out.println("----------------GRADES-------------------");
-//		String grades = getGrades(token);
-//		System.out.println(grades);
+		//Stage 3 Prefix
+		System.out.println("------Stage 3 Prefix------");
+		JSONObject dataForPrefix = getPrefixData(token);
+		JSONArray arrayWithNoPrefix = getArrayWithNoPrefix(dataForPrefix);
+		System.out.println("Submitting result...");
+		result = submitNewArray(token, arrayWithNoPrefix);
+		System.out.println("RESULT -->  " + result);
+		System.out.println("-------Stage 3 DONE-------");
+		System.out.println();
+		
+		//GRADES
+		System.out.println("----------------GRADES-------------------");
+		String grades = getGrades(token);
+		System.out.println(grades);
 	}
 	
 	/*
 	 * ---------------------------STAGE 3 METHODS----------------------------------
 	 */
-//	public static String[] getArrayWithNoPrefix(JSONObject data) { 
-//		
-//	}
+	public static String submitNewArray(String token, JSONArray arrayWithNoPrefix) throws Exception{		
+		JSONObject dictionary = new JSONObject();
+		dictionary.put("token", token);
+		dictionary.put("array", arrayWithNoPrefix);
+		
+		URL url = new URL("http://challenge.code2040.org/api/validateprefix");
+		JSONObject jsonObject = getData(dictionary, url);	
+		String result = jsonObject.get("result").toString();
+		return result;
+	}
+	
+	public static JSONArray getArrayWithNoPrefix(JSONObject data) { 
+		String [] arrayWithPrefix = data.get("array").toString().replace("[", "").replace("]", "").replace("\"", "").split(",");;
+		String prefix = data.get("prefix").toString();
+		JSONArray arrayWithNoPrefix = new JSONArray();
+		
+		for(int i=0; i < arrayWithPrefix.length; i++) {
+			if(!arrayWithPrefix[i].startsWith(prefix)) arrayWithNoPrefix.add(arrayWithPrefix[i]);
+		}
+		
+		return arrayWithNoPrefix;
+	}
 	
 	public static JSONObject getPrefixData(String token) throws Exception {
 		JSONObject dictionary = new JSONObject();
@@ -66,7 +90,6 @@ public class Code2040_Project {
 		JSONParser parser = new JSONParser();
 		Object obj = parser.parse(jsonObject.get("result").toString());
 		JSONObject result = (JSONObject) obj;
-		System.out.println(result);
 		
 		return result;
 	}
@@ -81,8 +104,8 @@ public class Code2040_Project {
 		
 		URL url = new URL("http://challenge.code2040.org/api/validateneedle");
 		JSONObject jsonObject = getData(dictionary, url);	
-		String str = jsonObject.get("result").toString();
-		return str;
+		String result = jsonObject.get("result").toString();
+		return result;
 	}
 	
 	public static int locateNeedleInHaystack(JSONObject data) {
