@@ -3,9 +3,25 @@ import java.io.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONArray;
-import java.util.*;
 import org.joda.time.*;
 
+/*
+ * CODE2040 Reviewer:
+ * 
+ * My strongest programming language is C++ and when I started working with 
+ * this API challenge, I picked C++ for the development. However, I was not 
+ * able to do an HTTP request. I was not able to find any libraries on C++
+ * that would get the job done. Then, I switched to Java (I haven't used Java
+ * in more than a year). Java was great, it has great libraries for making
+ * HTTP request and after struggling/researching with google I was able to get
+ * it to work!
+ * 
+ * I apologize that this is not my best code style but I am in a time constraint 
+ * because I am in the middle of my quarter. It does get the job done though! 
+ * I enjoyed working on the API challenge and I learned a lot.
+ * 
+ * Fidel Salgado
+ */
 
 public class Code2040_Project {
 
@@ -67,7 +83,6 @@ public class Code2040_Project {
 	/*
 	 * ---------------------------STAGE 4 METHODS----------------------------------
 	 */
-	
 	public static String submitNewDate(String token, String newDate) throws Exception{		
 		JSONObject dictionary = new JSONObject();
 		dictionary.put("token", token);
